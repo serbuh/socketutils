@@ -1,6 +1,6 @@
 import time
 
-from sockets import Socket
+from .sockets import Socket
 
 # Send
 def sender_loop_exapmle(port_send_to, port_send_from=None):
@@ -34,7 +34,7 @@ def receiver_loop_example(port_listen_to):
     except KeyboardInterrupt:
         print("Keyboard Interrupt. Exit")
 
-if __name__ == "__main__":    
+def send_receive_example():
     import threading
     from_port = 5670
     to_port = 5671
