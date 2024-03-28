@@ -31,13 +31,22 @@ class Socket():
         if recv_timeout is not None:
             self.sock.settimeout(recv_timeout)
 
-    def blocking_recv(self):
+    def blocking_recv_serialized(self):
         data, _ = self.sock.recvfrom(self.recv_buf_size) # Blocking. Should be in thread
         return data
     
-    def timedout_recv(self):
+    def blocking_recv_json(self):
+        serialized_data = self.blocking_recv_serialized()
+        return json.loads(serialized_data)
+
+    def timedout_recv_serialized(self):
         try:
-            data, _ = self.sock.recvfrom(self.recv_buf_size) # Assuming timeout is set
-            return data
+            return self.blocking_recv_serialized()
+        except socket.timeout:
+            return None
+
+    def timedout_recv_json(self):
+        try:
+            return self.blocking_recv_json()
         except socket.timeout:
             return None

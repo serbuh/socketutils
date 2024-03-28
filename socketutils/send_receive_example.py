@@ -29,7 +29,7 @@ def receiver_loop_example(port_listen_to):
     to_listen = True
     try:
         while to_listen:
-            data = my_sock.blocking_recv()
+            data = my_sock.blocking_recv_serialized()
             print(data)
     except KeyboardInterrupt:
         print("Keyboard Interrupt. Exit")
