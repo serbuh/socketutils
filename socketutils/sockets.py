@@ -50,3 +50,6 @@ class Socket():
             return self.blocking_recv_json()
         except socket.timeout:
             return None
+    
+    def close(self):
+        self.sock.close()
